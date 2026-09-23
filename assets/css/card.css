@@ -1,0 +1,42 @@
+.grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 15px;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.carte {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid #393939;
+    border-radius: 15px;
+}
+
+.carte h2 {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.carte img {
+    width: 96px;
+    height: 96px;
+}
+
+.fav {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
