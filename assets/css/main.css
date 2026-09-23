@@ -31,3 +31,13 @@ body {
     background-color: #ffffff;
     border: 1px solid red;
 }
+
+#recherche {
+    display: block;
+    margin: 15px auto;
+    padding: 8px;
+    width: 300px;
+    font-size: 16px;
+    border: 1px solid #393939;
+    border-radius: 15px;
+}
