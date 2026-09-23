@@ -1,3 +1,6 @@
+import { setupFavoris } from "../fav.js";
+import { setupSearchBar } from "../searchBar.js";
+
 const getFrenchName = (species, fallback) => {
     for (let i = 0; i < species.names.length; i++) {
         if (species.names[i].language.name === "fr") {
@@ -54,6 +57,7 @@ export const getPokemonList = async () => {
 
             content += `
                 <div class="carte" data-id="${pokemon.id}">
+                    <button class="fav"></button>
                     <h2>${pokemon.name}</h2>
                     <img src="${pokemon.sprite}" alt="${pokemon.name}">
                 </div>
@@ -64,6 +68,9 @@ export const getPokemonList = async () => {
         elements.className = 'grille'
         elements.innerHTML = content
         document.body.appendChild(elements)
+
+        setupFavoris()
+        setupSearchBar()
     } else {
         displayError("Une erreur est survenue")
     }
