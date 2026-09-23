@@ -1,5 +1,4 @@
 import { setupFavoris } from "../fav.js";
-import { setupSearchBar } from "../searchBar.js";
 
 const getFrenchName = (species, fallback) => {
     for (let i = 0; i < species.names.length; i++) {
@@ -70,7 +69,6 @@ export const getPokemonList = async () => {
         document.body.appendChild(elements)
 
         setupFavoris()
-        setupSearchBar()
     } else {
         displayError("Une erreur est survenue")
     }
