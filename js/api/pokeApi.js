@@ -1,5 +1,16 @@
 import { setupFavoris } from "../fav.js";
 
+const nomsDesStats = {
+    'hp': 'PV',
+    'attack': 'Attaque',
+    'defense': 'Défense',
+    'special-attack': 'Attaque Spé.',
+    'special-defense': 'Défense Spé.',
+    'speed': 'Vitesse'
+};
+
+let pokemons = [];
+
 const getFrenchName = (species, fallback) => {
     for (let i = 0; i < species.names.length; i++) {
         if (species.names[i].language.name === "fr") {
@@ -19,6 +30,20 @@ const getTypes = (fiche) => {
     return types.join(' ');
 }
 
+const getStats = (fiche) => {
+    const stats = [];
+    for (let i = 0; i < fiche.stats.length; i++) {
+        const nomApi = fiche.stats[i].stat.name;
+
+        stats.push({
+            nom: nomsDesStats[nomApi] || nomApi,
+            valeur: fiche.stats[i].base_stat
+        });
+    }
+
+    return stats;
+}
+
 const getDetails = async (pokemon) => {
     const fiche = await fetch(pokemon.url).then(res => res.json());
     const species = await fetch(fiche.species.url).then(res => res.json());
@@ -27,8 +52,15 @@ const getDetails = async (pokemon) => {
         id: fiche.id,
         name: getFrenchName(species, fiche.name),
         sprite: fiche.sprites.front_default,
-        types: getTypes(fiche)
+        types: getTypes(fiche),
+        height: fiche.height / 10,
+        weight: fiche.weight / 10,
+        stats: getStats(fiche)
     };
+}
+
+export const getPokemon = (id) => {
+    return pokemons.find(pokemon => pokemon.id === Number(id));
 }
 
 const displayError = (message) => {
@@ -59,6 +91,7 @@ export const getPokemonList = async () => {
         }
 
         const details = await Promise.all(requetes);
+        pokemons = details;
 
         let content = "";
         for (let i = 0; i < details.length; i++) {
