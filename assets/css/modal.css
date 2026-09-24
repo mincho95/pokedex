@@ -1,0 +1,78 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-contenu {
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px 40px;
+    text-align: center;
+    min-width: 260px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-contenu h2 {
+    margin: 0 0 5px;
+}
+
+.modal-contenu img {
+    width: 130px;
+    height: 130px;
+}
+
+.modal-contenu p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.modal-fermer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.stats {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    text-align: left;
+}
+
+.stat {
+    display: grid;
+    grid-template-columns: 110px 1fr 35px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.stat-barre {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.stat-remplissage {
+    display: block;
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 4px;
+}
+
+.stat-valeur {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}

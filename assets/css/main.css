@@ -1,0 +1,34 @@
+@import url(card.css);
+@import url(modal.css);
+
+body {
+    margin: 0;
+    padding-bottom: 30px;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    background-image: url("../img/Pokemon%20Wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#compteur {
+    margin: 0;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid #000000;
+}
+
+.erreur {
+    margin: 40px auto;
+    padding: 15px;
+    width: 300px;
+    text-align: center;
+    color: red;
+    background-color: #ffffff;
+    border: 1px solid red;
+}
