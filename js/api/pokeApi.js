@@ -1,6 +1,4 @@
 import { setupFavoris } from "../fav.js";
-import { setupSearchBar } from "../searchBar.js";
-import { setupFiltreType } from "../filter.js";
 
 const nomsDesStats = {
     'hp': 'PV',
@@ -114,8 +112,6 @@ export const getPokemonList = async () => {
         document.body.appendChild(elements)
 
         setupFavoris()
-        setupSearchBar()
-        setupFiltreType()
     } else {
         displayError("Une erreur est survenue")
     }

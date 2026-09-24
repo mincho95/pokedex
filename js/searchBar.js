@@ -7,7 +7,5 @@ export const setupSearchBar = () => {
         return;
     }
 
-    recherche.addEventListener('input', () => {
-        appliquerFiltres();
-    });
+    recherche.addEventListener('input', appliquerFiltres);
 }
