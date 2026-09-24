@@ -1,5 +1,6 @@
 
 import { setupSearchBar } from "../searchBar.js";
+import { setupFiltreType } from "../filter.js";
 
 const getFrenchName = (species, fallback) => {
     for (let i = 0; i < species.names.length; i++) {
@@ -11,6 +12,15 @@ const getFrenchName = (species, fallback) => {
     return fallback;
 }
 
+const getTypes = (fiche) => {
+    const types = [];
+    for (let i = 0; i < fiche.types.length; i++) {
+        types.push(fiche.types[i].type.name);
+    }
+
+    return types.join(' ');
+}
+
 const getDetails = async (pokemon) => {
     const fiche = await fetch(pokemon.url).then(res => res.json());
     const species = await fetch(fiche.species.url).then(res => res.json());
@@ -18,7 +28,8 @@ const getDetails = async (pokemon) => {
     return {
         id: fiche.id,
         name: getFrenchName(species, fiche.name),
-        sprite: fiche.sprites.front_default
+        sprite: fiche.sprites.front_default,
+        types: getTypes(fiche)
     };
 }
 
@@ -56,7 +67,7 @@ export const getPokemonList = async () => {
             const pokemon = details[i];
 
             content += `
-                <div class="carte" data-id="${pokemon.id}">
+                <div class="carte" data-id="${pokemon.id}" data-types="${pokemon.types}">
                     <button class="fav"></button>
                     <h2>${pokemon.name}</h2>
                     <img src="${pokemon.sprite}" alt="${pokemon.name}">
@@ -69,7 +80,9 @@ export const getPokemonList = async () => {
         elements.innerHTML = content
         document.body.appendChild(elements)
 
+
         setupSearchBar()
+        setupFiltreType()
     } else {
         displayError("Une erreur est survenue")
     }
