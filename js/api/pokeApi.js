@@ -10,6 +10,15 @@ const getFrenchName = (species, fallback) => {
     return fallback;
 }
 
+const getTypes = (fiche) => {
+    const types = [];
+    for (let i = 0; i < fiche.types.length; i++) {
+        types.push(fiche.types[i].type.name);
+    }
+
+    return types.join(' ');
+}
+
 const getDetails = async (pokemon) => {
     const fiche = await fetch(pokemon.url).then(res => res.json());
     const species = await fetch(fiche.species.url).then(res => res.json());
@@ -17,7 +26,8 @@ const getDetails = async (pokemon) => {
     return {
         id: fiche.id,
         name: getFrenchName(species, fiche.name),
-        sprite: fiche.sprites.front_default
+        sprite: fiche.sprites.front_default,
+        types: getTypes(fiche)
     };
 }
 
