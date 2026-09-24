@@ -65,7 +65,7 @@ export const getPokemonList = async () => {
             const pokemon = details[i];
 
             content += `
-                <div class="carte" data-id="${pokemon.id}">
+                <div class="carte" data-id="${pokemon.id}" data-types="${pokemon.types}">
                     <button class="fav"></button>
                     <h2>${pokemon.name}</h2>
                     <img src="${pokemon.sprite}" alt="${pokemon.name}">
