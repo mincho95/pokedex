@@ -1,5 +1,3 @@
-import { appliquerFiltres } from "./filter.js";
-
 export const setupSearchBar = () => {
     const recherche = document.getElementById('recherche');
 
@@ -8,6 +6,16 @@ export const setupSearchBar = () => {
     }
 
     recherche.addEventListener('input', () => {
-        appliquerFiltres();
+        const texte = recherche.value.toLowerCase();
+
+        document.querySelectorAll('.carte').forEach(carte => {
+            const nom = carte.querySelector('h2').textContent.toLowerCase();
+
+            if (nom.includes(texte)) {
+                carte.style.display = '';
+            } else {
+                carte.style.display = 'none';
+            }
+        });
     });
 }

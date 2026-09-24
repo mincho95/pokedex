@@ -1,5 +1,6 @@
 .grille {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 15px;
     padding: 15px;
     margin-left: 150px;
@@ -38,14 +39,4 @@
     background: none;
     border: none;
     cursor: pointer;
-}
-
-#recherche {
-    display: block;
-    width: 300px;
-    margin-left: 150px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #393939;
-    border-radius: 15px;
 }
