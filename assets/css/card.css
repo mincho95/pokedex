@@ -3,8 +3,8 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 15px;
     padding: 15px;
-    margin-left: 150px;
-    margin-right: 150px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .carte {
@@ -17,24 +17,29 @@
     padding: 10px;
     cursor: pointer;
     background-color: #ffffff;
-    border: 1px solid #393939;
+    border: 1px solid #dddddd;
     border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
 }
 
 .carte:hover {
-    background-color: #e3e3e3;
-    transform: scale(1.05);
-    transition: all 0.3s ease;
+    border-color: #e3350d;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .carte h2 {
     margin: 5px 0;
     font-size: 16px;
+    text-transform: capitalize;
 }
 
 .carte img {
     width: 96px;
     height: 96px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
 }
 
 .fav {
@@ -45,9 +50,9 @@
     background: none;
     border: none;
     cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .fav:hover {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
+    transform: scale(1.2);
 }
