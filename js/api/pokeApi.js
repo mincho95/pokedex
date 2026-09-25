@@ -1,17 +1,5 @@
 import { setupFavoris } from "../fav.js";
-import { setupSearchBar } from "../searchBar.js";
-import { setupFiltreType } from "../filter.js";
-
-const nomsDesStats = {
-    'hp': 'PV',
-    'attack': 'Attaque',
-    'defense': 'Défense',
-    'special-attack': 'Attaque Spé.',
-    'special-defense': 'Défense Spé.',
-    'speed': 'Vitesse'
-};
-
-let pokemons = [];
+import { appliquerFiltres } from "../filter.js";
 
 const nomsDesStats = {
     'hp': 'PV',
@@ -86,7 +74,7 @@ const displayError = (message) => {
 export const getPokemonList = async () => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
         .catch(error => {
-            console.error("Error:", error)
+            console.error("Error:", error);
             return null;
         });
 
@@ -119,15 +107,14 @@ export const getPokemonList = async () => {
             `;
         }
 
-        const elements = document.createElement('main')
-        elements.className = 'grille'
-        elements.innerHTML = content
-        document.body.appendChild(elements)
+        const elements = document.createElement('main');
+        elements.className = 'grille';
+        elements.innerHTML = content;
+        document.body.appendChild(elements);
 
-        setupFavoris()
-        setupSearchBar()
-        setupFiltreType()
+        setupFavoris();
+        appliquerFiltres();
     } else {
-        displayError("Une erreur est survenue")
+        displayError("Une erreur est survenue");
     }
 }
