@@ -21,6 +21,12 @@
     border-radius: 15px;
 }
 
+.carte:hover {
+    background-color: #e3e3e3;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
 .carte h2 {
     margin: 5px 0;
     font-size: 16px;
@@ -39,4 +45,9 @@
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.fav:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
 }
