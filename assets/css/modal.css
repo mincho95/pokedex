@@ -10,8 +10,7 @@
 .modal-contenu {
     position: relative;
     background-color: white;
-    border-radius: 15px;
-    border-top: 6px solid #e3350d;
+    border-radius: 12px;
     padding: 30px 40px;
     text-align: center;
     min-width: 260px;
@@ -21,7 +20,6 @@
 
 .modal-contenu h2 {
     margin: 0 0 5px;
-    text-transform: capitalize;
 }
 
 .modal-contenu img {
@@ -41,12 +39,7 @@
     border: none;
     background: none;
     font-size: 18px;
-    color: #777777;
     cursor: pointer;
-}
-
-.modal-fermer:hover {
-    color: #e3350d;
 }
 
 .stats {

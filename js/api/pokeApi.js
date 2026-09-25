@@ -13,6 +13,17 @@ const nomsDesStats = {
 
 let pokemons = [];
 
+const nomsDesStats = {
+    'hp': 'PV',
+    'attack': 'Attaque',
+    'defense': 'Défense',
+    'special-attack': 'Attaque Spé.',
+    'special-defense': 'Défense Spé.',
+    'speed': 'Vitesse'
+};
+
+let pokemons = [];
+
 const getFrenchName = (species, fallback) => {
     for (let i = 0; i < species.names.length; i++) {
         if (species.names[i].language.name === "fr") {
