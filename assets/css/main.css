@@ -1,11 +1,13 @@
 @import url(card.css);
+@import url(search.css);
 @import url(modal.css);
 
 body {
     margin: 0;
     padding-bottom: 30px;
     font-family: Arial, sans-serif;
-    color: #000000;
+    color: #333333;
+    background-color: #f2f2f2;
     background-image: url("../img/Pokemon%20Wallpaper.jpg");
     background-size: cover;
     background-position: center;
@@ -15,12 +17,13 @@ body {
 
 #compteur {
     margin: 0;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
-    background-color: #ffffff;
-    border-bottom: 2px solid #000000;
+    color: #ffffff;
+    background-color: #e3350d;
+    border-bottom: 4px solid #333333;
 }
 
 .erreur {
@@ -28,9 +31,10 @@ body {
     padding: 15px;
     width: 300px;
     text-align: center;
-    color: red;
+    color: #c62828;
     background-color: #ffffff;
-    border: 1px solid red;
+    border: 1px solid #c62828;
+    border-radius: 10px;
 }
 
 #recherche {
