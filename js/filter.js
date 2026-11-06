@@ -21,11 +21,23 @@ const types = [
 
 let typeChoisi = '';
 
+export const nomDuType = (api) => {
+    const type = types.find(type => type.api === api);
+    return type ? type.nom : api;
+}
+
+/* Génère les badges colorés à partir de "grass poison" */
+export const afficherTypes = (typesDuPokemon) => typesDuPokemon
+    .split(' ')
+    .map(type => `<span class="badge-type type-${type}">${nomDuType(type)}</span>`)
+    .join('');
+
 export const appliquerFiltres = () => {
     const recherche = document.getElementById('recherche');
-    const texte = recherche ? recherche.value.toLowerCase() : '';
+    const texte = recherche ? recherche.value.toLowerCase().trim() : '';
+    let visibles = 0;
 
-    document.querySelectorAll('.carte').forEach(carte => {
+    document.querySelectorAll('.carte:not(.squelette)').forEach(carte => {
         const nom = carte.querySelector('h2').textContent.toLowerCase();
         const typesDeLaCarte = carte.dataset.types.split(' ');
 
@@ -34,10 +46,21 @@ export const appliquerFiltres = () => {
 
         if (bonNom && bonType) {
             carte.style.display = '';
+            visibles++;
         } else {
             carte.style.display = 'none';
         }
     });
+
+    const resultats = document.getElementById('resultats');
+    if (resultats) {
+        resultats.textContent = `${visibles} Pokémon`;
+    }
+
+    const vide = document.getElementById('vide');
+    if (vide) {
+        vide.hidden = visibles > 0;
+    }
 }
 
 export const setupFiltreType = () => {
@@ -48,25 +71,45 @@ export const setupFiltreType = () => {
         return;
     }
 
-    let contenu = '<button data-type="">Tous</button>';
+    let contenu = '<button type="button" data-type="" class="actif">Tous les types</button>';
     for (let i = 0; i < types.length; i++) {
-        contenu += `<button data-type="${types[i].api}">${types[i].nom}</button>`;
+        contenu += `<button type="button" data-type="${types[i].api}" class="type-${types[i].api}">${types[i].nom}</button>`;
     }
     liste.innerHTML = contenu;
 
+    const ouvrir = (ouvert) => {
+        liste.hidden = !ouvert;
+        bouton.setAttribute('aria-expanded', ouvert);
+    }
+
     bouton.addEventListener('click', () => {
-        if (liste.style.display === 'none') {
-            liste.style.display = '';
-        } else {
-            liste.style.display = 'none';
+        ouvrir(liste.hidden);
+    });
+
+    /* Ferme la liste si on clique ailleurs ou qu'on appuie sur Échap */
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('#filtre-type')) {
+            ouvrir(false);
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            ouvrir(false);
         }
     });
 
     liste.querySelectorAll('button').forEach(boutonType => {
         boutonType.addEventListener('click', () => {
             typeChoisi = boutonType.dataset.type;
-            bouton.textContent = `Type : ${boutonType.textContent}`;
-            liste.style.display = 'none';
+
+            liste.querySelectorAll('button').forEach(b => b.classList.remove('actif'));
+            boutonType.classList.add('actif');
+
+            bouton.textContent = boutonType.textContent;
+            bouton.className = typeChoisi ? `type-${typeChoisi}` : '';
+
+            ouvrir(false);
             appliquerFiltres();
         });
     });

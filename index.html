@@ -4,19 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokédex de la première génération : les 151 Pokémon, leurs types et leurs statistiques.">
     <title>Pokédex</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 16a13 13 0 0 1 26 0z' fill='%23e3350d'/%3E%3Cpath d='M3 16a13 13 0 0 0 26 0z' fill='%23fff'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%231b2130' stroke-width='2.5'/%3E%3Cpath d='M3 16h26' stroke='%231b2130' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23fff' stroke='%231b2130' stroke-width='2.5'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
-    <p id="compteur">Favoris : 0</p>
-    <div class="barre">
-        <input type="text" id="recherche" placeholder="Rechercher un Pokémon">
-        <div id="filtre-type" class="filtre">
-            <button id="bouton-type">Type : Tous</button>
-            <div id="liste-types" style="display: none"></div>
+    <header class="entete">
+        <div class="conteneur entete-contenu">
+            <a class="logo" href="./">
+                <svg class="logo-icone" viewBox="0 0 32 32" aria-hidden="true">
+                    <path d="M3 16a13 13 0 0 1 26 0z" fill="#e3350d" />
+                    <path d="M3 16a13 13 0 0 0 26 0z" fill="#ffffff" />
+                    <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.5" />
+                    <path d="M3 16h26" stroke="currentColor" stroke-width="2.5" />
+                    <circle cx="16" cy="16" r="4.5" fill="#ffffff" stroke="currentColor" stroke-width="2.5" />
+                </svg>
+                <span class="logo-texte">
+                    <strong>Pokédex</strong>
+                    <small>Génération I · Kanto</small>
+                </span>
+            </a>
+
+            <div class="compteur" title="Nombre de Pokémon en favoris">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                <span>Favoris</span>
+                <span id="compteur" class="compteur-nombre">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="conteneur">
+            <h1>Trouvez votre Pokémon</h1>
+            <p>Les 151 Pokémon de la région de Kanto, avec leurs types et leurs statistiques de base.</p>
+        </div>
+    </section>
+
+    <div class="barre conteneur">
+        <div class="barre-contenu">
+            <label class="recherche">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M20 20l-3.5-3.5" />
+                </svg>
+                <input type="search" id="recherche" placeholder="Rechercher un Pokémon" autocomplete="off" aria-label="Rechercher un Pokémon">
+            </label>
+
+            <div id="filtre-type" class="filtre">
+                <button id="bouton-type" type="button" aria-haspopup="true" aria-expanded="false">Tous les types</button>
+                <div id="liste-types" hidden></div>
+            </div>
+
+            <p id="resultats" class="resultats" aria-live="polite"></p>
         </div>
     </div>
+
+    <main class="conteneur">
+        <div id="grille" class="grille"></div>
+        <p id="vide" class="vide" hidden>Aucun Pokémon ne correspond à votre recherche.</p>
+    </main>
+
+    <footer class="pied">
+        <div class="conteneur">
+            <p>Projet réalisé par Lucas Decret, Paul Fery et Alain Rodhain.</p>
+            <p>Données et illustrations : <a href="https://pokeapi.co" target="_blank" rel="noopener">PokéAPI</a>. Pokémon © Nintendo / Game Freak.</p>
+        </div>
+    </footer>
 
     <script type="module" src="js/main.js"></script>
 </body>

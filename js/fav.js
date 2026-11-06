@@ -15,8 +15,15 @@ export const updateCompteur = () => {
     const favoris = getFavoris();
     const compteur = document.getElementById('compteur');
     if (compteur) {
-        compteur.textContent = `Favoris : ${favoris.length}`;
+        compteur.textContent = favoris.length;
     }
+}
+
+/* Met à jour l'apparence du cœur (plein ou vide) */
+const afficherEtat = (bouton, favori) => {
+    bouton.classList.toggle('actif', favori);
+    bouton.setAttribute('aria-pressed', favori);
+    bouton.setAttribute('aria-label', favori ? 'Retirer des favoris' : 'Ajouter aux favoris');
 }
 
 const toggleFavori = (id, bouton) => {
@@ -24,10 +31,10 @@ const toggleFavori = (id, bouton) => {
 
     if (favoris.includes(id)) {
         favoris = favoris.filter(favoriId => favoriId !== id);
-        bouton.textContent = '🩶';
+        afficherEtat(bouton, false);
     } else {
         favoris.push(id);
-        bouton.textContent = '❤️';
+        afficherEtat(bouton, true);
     }
 
     saveFavoris(favoris);
@@ -43,7 +50,7 @@ export const setupFavoris = () => {
             return;
         }
 
-        bouton.textContent = isFavori(id) ? '❤️' : '🩶';
+        afficherEtat(bouton, isFavori(id));
 
         bouton.addEventListener('click', (event) => {
             event.stopPropagation();

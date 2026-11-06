@@ -1,78 +1,238 @@
+/* ---------- Fenêtre de détail ---------- */
+
 .modal {
     position: fixed;
     inset: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.6);
+    padding: 16px;
+    background-color: rgba(15, 20, 32, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: fondu 0.2s ease;
 }
 
 .modal-contenu {
     position: relative;
-    background-color: white;
-    border-radius: 12px;
-    padding: 30px 40px;
-    text-align: center;
-    min-width: 260px;
-    max-height: 90vh;
+    width: 100%;
+    max-width: 460px;
+    max-height: calc(100vh - 32px);
     overflow-y: auto;
-}
-
-.modal-contenu h2 {
-    margin: 0 0 5px;
-}
-
-.modal-contenu img {
-    width: 130px;
-    height: 130px;
-}
-
-.modal-contenu p {
-    margin: 4px 0;
-    font-size: 14px;
+    background-color: var(--surface);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.45);
+    animation: entree 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
 }
 
 .modal-fermer {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    font-size: 18px;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    transition: background-color 0.15s ease, transform 0.15s ease;
 }
+
+.modal-fermer:hover {
+    background-color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.modal-fermer svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--texte);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+
+/* En-tête coloré selon le type principal */
+.modal-entete {
+    position: relative;
+    overflow: hidden;
+    padding: 28px 28px 0;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.45) 0 30%, transparent 60%),
+        linear-gradient(160deg, color-mix(in srgb, var(--type) 55%, #ffffff), var(--type));
+}
+
+.modal-numero {
+    display: inline-block;
+    margin-bottom: 4px;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+}
+
+.modal-entete h2 {
+    margin: 4px 0 10px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+}
+
+.modal-entete .badge-type {
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+}
+
+.modal-entete img {
+    position: relative;
+    display: block;
+    width: 220px;
+    height: 220px;
+    margin: 8px auto -24px;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 16px rgba(20, 28, 45, 0.3));
+}
+
+.modal-corps {
+    padding: 36px 28px 28px;
+}
+
+.mesures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.mesure {
+    padding: 12px;
+    text-align: center;
+    background-color: var(--fond);
+    border-radius: 14px;
+}
+
+.mesure span {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--texte-doux);
+}
+
+.mesure strong {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-corps h3 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* ---------- Statistiques ---------- */
 
 .stats {
     list-style: none;
-    margin: 20px 0 0;
+    margin: 0;
     padding: 0;
-    text-align: left;
 }
 
 .stat {
     display: grid;
-    grid-template-columns: 110px 1fr 35px;
+    grid-template-columns: 104px 36px 1fr;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+    gap: 12px;
+    padding: 5px 0;
     font-size: 14px;
 }
 
+.stat-nom {
+    color: var(--texte-doux);
+    font-weight: 500;
+}
+
+.stat-valeur {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
 .stat-barre {
-    background-color: #e0e0e0;
-    border-radius: 4px;
-    height: 10px;
+    height: 8px;
     overflow: hidden;
+    background-color: var(--fond);
+    border-radius: 999px;
 }
 
 .stat-remplissage {
     display: block;
     height: 100%;
-    background-color: #4caf50;
-    border-radius: 4px;
+    background-color: var(--type);
+    border-radius: 999px;
+    transform-origin: left;
+    animation: remplir 0.6s ease-out;
 }
 
-.stat-valeur {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
+.stat-total {
+    margin-top: 6px;
+    padding-top: 11px;
+    border-top: 1px solid var(--bordure);
+}
+
+.stat-total .stat-nom {
+    color: var(--texte);
+    font-weight: 700;
+}
+
+@keyframes remplir {
+    from {
+        transform: scaleX(0);
+    }
+}
+
+@keyframes fondu {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes entree {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+    }
+}
+
+/* Empêche le défilement de la page quand la fenêtre est ouverte */
+body.modal-ouverte {
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .modal-entete {
+        padding: 24px 20px 0;
+    }
+
+    .modal-entete img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .modal-corps {
+        padding: 32px 20px 22px;
+    }
+
+    .stat {
+        grid-template-columns: 96px 32px 1fr;
+        gap: 10px;
+    }
 }

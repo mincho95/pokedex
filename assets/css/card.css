@@ -1,58 +1,227 @@
+/* ---------- Grille ---------- */
+
 .grille {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
-    padding: 15px;
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+    padding-top: 24px;
 }
 
+/* ---------- Carte ---------- */
+
 .carte {
+    --type: var(--normal);
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding: 16px 16px 18px;
+    overflow: hidden;
     text-align: center;
-    padding: 10px;
     cursor: pointer;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    transition: all 0.2s ease;
+    background:
+        linear-gradient(180deg, color-mix(in srgb, var(--type) 18%, #ffffff) 0%, #ffffff 62%);
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.carte:hover {
-    border-color: #e3350d;
+.carte:hover,
+.carte:focus-visible {
     transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: color-mix(in srgb, var(--type) 55%, #ffffff);
+    box-shadow: var(--ombre-haute);
 }
 
-.carte h2 {
-    margin: 5px 0;
-    font-size: 16px;
-    text-transform: capitalize;
+/* Poké Ball en filigrane derrière l'illustration */
+.carte::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle, transparent 0 16px, rgba(255, 255, 255, 0.75) 17px 25px, transparent 26px),
+        linear-gradient(transparent calc(50% - 4px), rgba(255, 255, 255, 0.75) calc(50% - 4px) calc(50% + 4px), transparent calc(50% + 4px));
+    box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.75);
+}
+
+.carte-numero {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in srgb, var(--type) 70%, var(--texte));
+    opacity: 0.8;
 }
 
 .carte img {
-    width: 96px;
-    height: 96px;
-    background-color: #f5f5f5;
-    border-radius: 50%;
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 12px 0 8px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 10px rgba(20, 28, 45, 0.18));
+    transition: transform 0.25s ease;
 }
+
+.carte:hover img {
+    transform: scale(1.08);
+}
+
+.carte h2 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+}
+
+/* ---------- Badges de type ---------- */
+
+.types {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.badge-type {
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    background-color: var(--type);
+    border-radius: 999px;
+}
+
+/* Texte foncé sur les types clairs pour rester lisible */
+.badge-type.type-electric,
+.badge-type.type-ice,
+.badge-type.type-ground,
+.badge-type.type-normal,
+.badge-type.type-steel,
+.badge-type.type-bug,
+.badge-type.type-rock {
+    color: #1b2130;
+}
+
+/* ---------- Bouton favori ---------- */
 
 .fav {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 16px;
-    background: none;
-    border: none;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--bordure);
+    border-radius: 50%;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.fav svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--texte-doux);
+    stroke-width: 2;
+    transition: fill 0.15s ease, stroke 0.15s ease;
 }
 
 .fav:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    background-color: #ffffff;
+}
+
+.fav:hover svg {
+    stroke: var(--rouge);
+}
+
+.fav.actif svg {
+    fill: var(--rouge);
+    stroke: var(--rouge);
+}
+
+.fav.actif {
+    animation: battement 0.3s ease;
+}
+
+@keyframes battement {
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+/* ---------- Chargement ---------- */
+
+.squelette {
+    height: 262px;
+    cursor: default;
+    background: linear-gradient(100deg, #eceef2 30%, #f7f8fa 50%, #eceef2 70%);
+    background-size: 300% 100%;
+    border-color: transparent;
+    box-shadow: none;
+    animation: chargement 1.4s ease infinite;
+}
+
+.squelette::before {
+    display: none;
+}
+
+.squelette:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+@keyframes chargement {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: 0 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .grille {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding-top: 16px;
+    }
+
+    .carte {
+        padding: 12px 10px 14px;
+    }
+
+    .carte::before {
+        width: 110px;
+        height: 110px;
+    }
+
+    .carte img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .carte h2 {
+        font-size: 15px;
+    }
+
+    .squelette {
+        height: 220px;
+    }
 }
